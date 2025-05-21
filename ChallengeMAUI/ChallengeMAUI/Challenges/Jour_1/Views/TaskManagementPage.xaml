@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ChallengeMAUI.Challenges.Jour_1.Views.TaskManagementPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             
+             Title="TaskManagementPage" NavigationPage.HasNavigationBar="False"
+             BackgroundColor="White">
+
+    <StackLayout Padding="15">
+        <StackLayout VerticalOptions="FillAndExpand" Spacing="15">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Today" 
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           HorizontalOptions="FillAndExpand"
+                           FontFamily="PoppinsRegular"
+                           TextColor="Black"/>
+                <StackLayout Orientation="Horizontal"
+                                 Spacing="10"
+                                 HorizontalOptions="End">
+                    <Frame BackgroundColor="#f6f6f6"
+                               HeightRequest="30"
+                               BorderColor="Transparent"
+                               Padding="5" CornerRadius="50">
+                        <StackLayout Orientation="Horizontal" Spacing="7">
+                            <Image Source="cercle" Aspect="AspectFit" HeightRequest="14" WidthRequest="14">
+                                <Image.Behaviors>
+                                    <toolkit:IconTintColorBehavior  TintColor="#bcb7b4" />
+                                </Image.Behaviors>
+                            </Image>
+                            <Label Text="24"
+                                       FontSize="10"
+                                       VerticalOptions="CenterAndExpand"
+                                       TextColor="Gray"
+                                       FontAttributes="Bold"
+                                       FontFamily="PoppinsRegular"/>
+                        </StackLayout>
+                    </Frame>
+                    <Frame BackgroundColor="#f6f6f6"
+                               HeightRequest="30"
+                               BorderColor="Transparent"
+                               Padding="5" CornerRadius="50">
+                        <StackLayout Orientation="Horizontal" Spacing="7">
+                            <Image Source="lhorloge" Aspect="AspectFit" HeightRequest="14" WidthRequest="14">
+                                <Image.Behaviors>
+                                    <toolkit:IconTintColorBehavior  TintColor="#bcb7b4" />
+                                </Image.Behaviors>
+                            </Image>
+                            <Label Text="1.5 of 7.5 hrs"
+                                       FontSize="10"
+                                       VerticalOptions="CenterAndExpand"
+                                       TextColor="Gray"
+                                       FontAttributes="Bold"
+                                       FontFamily="PoppinsRegular"/>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </StackLayout>
+            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                <StackLayout Orientation="Horizontal" x:Name="calendrier"></StackLayout>
+            </ScrollView>
+            <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never">
+                <StackLayout Spacing="10">
+                    <!--Morning-->
+                    <StackLayout Spacing="10">
+                        <StackLayout Orientation="Horizontal" 
+                                         Spacing="5">
+                            <Image Aspect="AspectFit"
+                                       HeightRequest="20"
+                                       Source="journee"
+                                       WidthRequest="20"/>
+                            <Label Text="Morning"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       TextColor="Gray"
+                                       FontFamily="PoppinsRegular"/>
+                        </StackLayout>
+                    </StackLayout>
+
+                    <CollectionView VerticalOptions="FillAndExpand" ItemsSource="{Binding TaskMorning}" >
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="1" VerticalItemSpacing="10"/>
+                            <!-- Spécifiez le nombre de colonnes par ligne ici -->
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <!-- Définissez ici votre modèle de vue (DataTemplate) pour chaque élément -->
+                            <DataTemplate>
+                                <!--Debut demande-->
+                                <Frame CornerRadius="20" BackgroundColor="#f3f3f3" BorderColor="Transparent" Padding="10">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SelectCommand}" CommandParameter="{Binding}" />
+                                    </Frame.GestureRecognizers>
+                                    <StackLayout Orientation="Horizontal" Spacing="10">
+                                        <CheckBox IsChecked="{Binding Iselected}"
+                                                      Color="Gray"
+                                                      HorizontalOptions="Start" VerticalOptions="Start"/>
+                                        <Label HorizontalOptions="FillAndExpand"
+                                                   VerticalOptions="FillAndExpand">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding User}"
+                                                              FontAttributes="Bold"
+                                                              FontSize="14"
+                                                              TextColor="Black"
+                                                              FontFamily="PoppinsRegular"/>
+                                                    <Span Text=": "/>
+                                                    <Span Text="{Binding TaskDescription}"
+                                                              FontAttributes="Bold"
+                                                              FontSize="14"
+                                                              TextColor="Black"
+                                                              FontFamily="PoppinsRegular"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Button CornerRadius="50"
+                                                    HeightRequest="30"
+                                                    Padding="5"
+                                                    FontSize="12"
+                                                    HorizontalOptions="End"
+                                                    VerticalOptions="Start"
+                                                    BackgroundColor="White"
+                                                    TextColor="Black"
+                                                    Text="{Binding Time}"/>
+                                    </StackLayout>
+                                </Frame>
+                                <!--Fin demande-->
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <!--Afternoom-->
+
+                    <StackLayout Spacing="10">
+                        <StackLayout Orientation="Horizontal" 
+                                         Spacing="5">
+                            <Image Aspect="AspectFit"
+                                       Source="journee"
+                                       HeightRequest="20"
+                                       WidthRequest="20"/>
+                            <Label Text="Afternoom"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       TextColor="Gray"
+                                       FontFamily="PoppinsRegular"/>
+                        </StackLayout>
+                    </StackLayout>
+
+                    <CollectionView VerticalOptions="FillAndExpand" ItemsSource="{Binding TaskAfternoon}" >
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="1" VerticalItemSpacing="10"/>
+                            <!-- Spécifiez le nombre de colonnes par ligne ici -->
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <!-- Définissez ici votre modèle de vue (DataTemplate) pour chaque élément -->
+                            <DataTemplate>
+                                <!--Debut demande-->
+                                <Frame CornerRadius="20" BackgroundColor="#f3f3f3" BorderColor="Transparent" Padding="10">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SelectCommand}" CommandParameter="{Binding}" />
+                                    </Frame.GestureRecognizers>
+                                    <StackLayout Orientation="Horizontal" Spacing="10">
+                                        <CheckBox IsChecked="{Binding Iselected}"
+                                                      Color="Gray"
+                                                      HorizontalOptions="Start" VerticalOptions="Start"/>
+                                        <Label HorizontalOptions="FillAndExpand"
+                                                   VerticalOptions="FillAndExpand">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding User}"
+                                                              FontAttributes="Bold"
+                                                              FontSize="14"
+                                                              TextColor="Black"
+                                                              FontFamily="PoppinsRegular"/>
+                                                    <Span Text=": "/>
+                                                    <Span Text="{Binding TaskDescription}"
+                                                              FontAttributes="Bold"
+                                                              FontSize="14"
+                                                              TextColor="Black"
+                                                              FontFamily="PoppinsRegular"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Button CornerRadius="50"
+                                                    HeightRequest="30"
+                                                    Padding="5"
+                                                    FontSize="12"
+                                                    HorizontalOptions="End"
+                                                    VerticalOptions="Start"
+                                                    BackgroundColor="White"
+                                                    TextColor="Black"
+                                                    Text="{Binding Time}"/>
+                                    </StackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <!--Evening-->
+                    <StackLayout Spacing="10">
+                        <StackLayout Orientation="Horizontal" 
+                                         Spacing="5">
+                            <Image Aspect="AspectFit"
+                                       HeightRequest="20"
+                                       Source="meteo"
+                                       WidthRequest="20"/>
+                            <Label Text="Evening"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       TextColor="Gray"
+                                       FontFamily="PoppinsRegular"/>
+                        </StackLayout>
+                    </StackLayout>
+
+                    <CollectionView VerticalOptions="FillAndExpand" ItemsSource="{Binding TaskEvening}" >
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="1" VerticalItemSpacing="10"/>
+                            <!-- Spécifiez le nombre de colonnes par ligne ici -->
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <!-- Définissez ici votre modèle de vue (DataTemplate) pour chaque élément -->
+                            <DataTemplate>
+                                <!--Debut demande-->
+                                <Frame CornerRadius="20" BackgroundColor="#f3f3f3" BorderColor="Transparent" Padding="10">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SelectCommand}" CommandParameter="{Binding}" />
+                                    </Frame.GestureRecognizers>
+                                    <StackLayout Orientation="Horizontal" Spacing="10">
+                                        <CheckBox IsChecked="{Binding Iselected}" 
+                                                      Color="Gray"
+                                                      HorizontalOptions="Start" VerticalOptions="Start"/>
+                                        <Label HorizontalOptions="FillAndExpand"
+                                                   VerticalOptions="FillAndExpand">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding User}"
+                                                              FontAttributes="Bold"
+                                                              FontSize="14"
+                                                              TextColor="Black"
+                                                              FontFamily="PoppinsRegular"/>
+                                                    <Span Text=": "/>
+                                                    <Span Text="{Binding TaskDescription}"
+                                                              FontAttributes="Bold"
+                                                              FontSize="14"
+                                                              TextColor="Black"
+                                                              FontFamily="PoppinsRegular"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Button CornerRadius="50"
+                                                    HeightRequest="30"
+                                                    Padding="5"
+                                                    FontSize="12"
+                                                    HorizontalOptions="End"
+                                                    VerticalOptions="Start"
+                                                    BackgroundColor="White"
+                                                    TextColor="Black"
+                                                    Text="{Binding Time}"/>
+                                    </StackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+        <Frame BackgroundColor="Black"
+                   HeightRequest="50" 
+                   Padding="5"
+                   CornerRadius="100"
+                   HorizontalOptions="Center" 
+                   VerticalOptions="End">
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center"
+                             Spacing="10" x:Name="selectmenu">
+                <Button ImageSource="searchblanc" CornerRadius="100" 
+                            Padding="10"
+                            HeightRequest="35"
+                            Clicked="TapChange_Clicked"
+                            WidthRequest="35" BackgroundColor="Transparent">
+                    <Button.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="White"/>
+                    </Button.Behaviors>
+                </Button>
+                <Button ImageSource="checkblanc" CornerRadius="100" 
+                            Padding="10"
+                            HeightRequest="35"
+                            Clicked="TapChange_Clicked"
+                            WidthRequest="35" BackgroundColor="{StaticResource SelectColor}">
+                    <Button.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="White"/>
+                    </Button.Behaviors>
+                </Button>
+                <Button ImageSource="editer" CornerRadius="100" 
+                            Padding="10"
+                            HeightRequest="35"
+                            Clicked="TapChange_Clicked"
+                            WidthRequest="35" BackgroundColor="Transparent">
+                    <Button.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="White"/>
+                    </Button.Behaviors>
+                </Button>
+                <Button ImageSource="add" CornerRadius="100" 
+                            Padding="10"
+                            HeightRequest="35"
+                            Clicked="TapChange_Clicked"
+                            WidthRequest="35" BackgroundColor="Transparent">
+                    <Button.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="White"/>
+                    </Button.Behaviors>
+                </Button>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</ContentPage>
